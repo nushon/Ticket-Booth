@@ -1,0 +1,117 @@
+<%- include('../template/head') -%>
+<body class="is-boxed has-animations">
+	<%- include('../template/nav') -%>
+    <div class="body-wrap boxed-container">
+        <header class="site-header">
+			
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0">
+                            <a href="#">
+								<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+									<title>Laurel</title>
+								    <defs>
+								        <linearGradient x1="0%" y1="100%" x2="50%" y2="0%" id="logo-a">
+								            <stop stop-color="#F9425F" stop-opacity=".8" offset="0%"/>
+								            <stop stop-color="#47A1F9" stop-opacity=".16" offset="100%"/>
+								        </linearGradient>
+								        <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="logo-b">
+								            <stop stop-color="#FDFFDA" offset="0%"/>
+								            <stop stop-color="#F97059" stop-opacity=".798" offset="49.935%"/>
+								            <stop stop-color="#F9425F" stop-opacity="0" offset="100%"/>
+								        </linearGradient>
+								    </defs>
+								    <g fill="none" fill-rule="evenodd">
+								        <path d="M22 19.22c6.627 0 9.593-6.415 9.593-13.042C31.593-.45 28.627.007 22 .007S10 2.683 10 9.31c0 6.628 5.373 9.91 12 9.91z" fill="url(#logo-a)"/>
+								        <path d="M13.666 31.889c7.547 0 10.924-7.307 10.924-14.854 0-7.547-3.377-7.027-10.924-7.027C6.118 10.008 0 13.055 0 20.603c0 7.547 6.118 11.286 13.666 11.286z" fill="url(#logo-b)" transform="matrix(-1 0 0 1 24.59 0)"/>
+								    </g>
+								</svg>
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main style="background-color: #06101F">
+			<div>
+				<!-- <div class="pt-12 sm:pt-16 lg:pt-20">
+				  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="text-center">
+					  <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl lg:text-5xl">Simple no-tricks pricing</h2>
+					  <p class="mt-4 text-xl text-gray-600">If you're not satisfied, contact us within the first 14 days and we'll send you a full refund.</p>
+					</div>
+				  </div>
+				</div> -->
+				<div class="mt-8 pb-16 sm:mt-12 sm:pb-20 lg:pb-28">
+				  <div class="relative">
+					<div class="absolute inset-0 h-1/2 bg-gray-100"></div>
+					<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					  <div class="max-w-lg mx-auto rounded-lg shadow-lg overflow-hidden lg:max-w-none lg:flex">
+						<div class="flex-1 bg-white px-6 py-8 lg:p-12">
+						  <h3 class="text-2xl font-extrabold text-gray-900 sm:text-3xl"><%= single_event.event_name %></h3>
+						  <p class="mt-6 text-base text-gray-500"><%= single_event.event_description %></p>
+						  <div class="mt-8">
+							<div class="flex items-center">
+							  <h4 class="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase" style="color: #AC5C40;">What's included</h4>
+							  <div class="flex-1 border-t-2 border-gray-200"></div>
+							</div>
+							<form action="#" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+								<div>
+								  <label for="name" class="block text-sm font-medium text-gray-900">Name</label>
+								  <div class="mt-1">
+									<input type="text" name="name" id="part-name" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+								  </div>
+								</div>
+								<div>
+								  <label for="address" class="block text-sm font-medium text-gray-900">Address</label>
+								  <div class="mt-1">
+									<input type="text" name="address" id="part_address" autocomplete="street-address" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+								  </div>
+								</div>
+								<div>
+									<label for="amount" class="block text-sm font-medium text-gray-900">Amount</label>
+									<div class="mt-1">
+									  <input type="number" name="name" id="part-number" autocomplete="number" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+									</div>
+								  </div>
+								  <div>
+									<label for="transaction" class="block text-sm font-medium text-gray-900">Transaction Number</label>
+									<div class="mt-1">
+									  <input type="number" name="transaction" id="transaction" autocomplete="number" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+									</div>
+								  </div>
+							</form>
+						  </div>
+						</div>
+						<div class="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
+						  <p class="text-lg leading-6 font-medium text-gray-900"><%= single_event.event_date %></p>
+						  <div class="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900">
+							<span> <%= single_event.ticket_price %> </span>
+							<span class="ml-3 text-xl font-medium text-gray-500"> USD </span>
+						  </div>
+						  <p class="mt-4 text-sm">
+							<a href="#" class="font-medium text-gray-500 underline"> <%= single_event.event_date %> </a>
+						  </p>
+						  <div class="mt-6">
+							<div class="rounded-md shadow">
+							  <a href="#" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"> Get Access </a>
+							</div>
+						  </div>
+						  <div class="mt-4 text-sm">
+							<a href="#" class="font-medium text-gray-900">
+							  Get a free sample
+							  <span class="font-normal text-gray-500"> (20MB) </span>
+							</a>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			
+        </main>
+
+        <%- include('../template/footer') -%>
