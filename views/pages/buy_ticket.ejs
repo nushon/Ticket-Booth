@@ -57,48 +57,54 @@
 							  <h4 class="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase" style="color: #AC5C40;">What's included</h4>
 							  <div class="flex-1 border-t-2 border-gray-200"></div>
 							</div>
-							<form action="#" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+							<form name="validate" action="/participants" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
 								<div>
 								  <label for="name" class="block text-sm font-medium text-gray-900">Name</label>
 								  <div class="mt-1">
-									<input type="text" name="name" id="part-name" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+									<input type="text" name="name" id="participant-name" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
 								  </div>
 								</div>
 								<div>
 								  <label for="address" class="block text-sm font-medium text-gray-900">Address</label>
 								  <div class="mt-1">
-									<input type="text" name="address" id="part_address" autocomplete="street-address" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+									<input type="text" name="address" id="participant_address" autocomplete="street-address" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
 								  </div>
 								</div>
 								<div>
-									<label for="amount" class="block text-sm font-medium text-gray-900">Amount</label>
+									<label for="price" class="block text-sm font-medium text-gray-900">Amount</label>
 									<div class="mt-1">
-									  <input type="number" name="name" id="part-number" autocomplete="number" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+									  <input type="text" name="price" id="price" autocomplete="price" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
 									</div>
 								  </div>
 								  <div>
 									<label for="transaction" class="block text-sm font-medium text-gray-900">Transaction Number</label>
 									<div class="mt-1">
-									  <input type="number" name="transaction" id="transaction" autocomplete="number" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+									  <input type="tel" name="phone_number" id="transaction" autocomplete="tel" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
 									</div>
 								  </div>
+								  <div class="mt-6">
+									<div class="rounded-md shadow">
+										<a href="/" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"> 
+											<button class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900" type="submit"> BUY NOW </button>
+										</a> 
+									</div>
+								  </div>
+								 
 							</form>
+							
 						  </div>
 						</div>
 						<div class="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
-						  <p class="text-lg leading-6 font-medium text-gray-900"><%= single_event.event_date %></p>
+						  <p class="text-lg leading-6 font-medium text-gray-900">Event's Date: <%= single_event.event_date %></p> <br>
+						  <p class="text-lg leading-6 font-medium text-gray-900">Event's Venue: <%= single_event.location %></p>
 						  <div class="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900">
 							<span> <%= single_event.ticket_price %> </span>
-							<span class="ml-3 text-xl font-medium text-gray-500"> USD </span>
+							<span class="ml-3 text-xl font-medium text-gray-500"> <%= single_event.currency%> </span>
 						  </div>
-						  <p class="mt-4 text-sm">
+						  <!-- <p class="mt-4 text-sm">
 							<a href="#" class="font-medium text-gray-500 underline"> <%= single_event.event_date %> </a>
-						  </p>
-						  <div class="mt-6">
-							<div class="rounded-md shadow">
-							  <a href="#" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"> Get Access </a>
-							</div>
-						  </div>
+						  </p> -->
+						  
 						  <div class="mt-4 text-sm">
 							<a href="#" class="font-medium text-gray-900">
 							  Get a free sample
@@ -106,6 +112,7 @@
 							</a>
 						  </div>
 						</div>
+					<!-- </form> -->
 					  </div>
 					</div>
 				  </div>
@@ -113,5 +120,28 @@
 			  </div>
 			
         </main>
-
+	
         <%- include('../template/footer') -%>
+		<script>
+			function validation() {
+			let price = "<%= single_event.ticket_price %>";
+			let currency = "<%= single_event.currency%>";
+			let orange_account = "<%= single_event.orange_account%>";
+			let lonestar_account = "<%= single_event.lonestar_account%>";
+			console.log("This is ", + orange_account + " " + price + " " + currency);
+			let usd, ld;
+
+			if (orange_account === 9) {
+				if (currency === "USD" ) {
+				usd = 1;
+				window.location.href = "tel:*144*usd*1*231 + orange_account*price#";
+
+				console.log("This usd",usd)
+				}else if(currency === "LRD"){
+				ld = 2;
+				console.log("This ld", ld);
+			}
+			}
+		}
+		validation();
+		</script>

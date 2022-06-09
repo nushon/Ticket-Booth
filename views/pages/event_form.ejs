@@ -130,13 +130,22 @@
             <div>
               <label for="event_name" class="block text-sm font-medium text-gray-900">Event's Name</label>
               <div class="mt-1">
-                <input type="text" name="event_name" id="event_name" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                <input type="text" name="event_name" id="event_name" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
               </div>
             </div>
             <div>
               <label for="ticket_price" class="block text-sm font-medium text-gray-900">Ticket Price</label>
               <div class="mt-1">
-                <input type="number" name="ticket_price" id="last-name" autocomplete="number" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+               
+                <input type="number" name="ticket_price" id="last-name" autocomplete="number" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
+                <label for="usd" class="block text-sm font-medium text-gray-900">USD 
+                  <input type="radio" name="currency" id="usd" value="USD">
+                </label>
+                
+                <label for="ld" class="block text-sm font-medium text-gray-900">LRD 
+                  <input type="radio" name="currency" id="ld" value="LRD">
+                </label>
+                
               </div>
             </div>
             <div>
@@ -160,29 +169,36 @@
               <div>
                 <label for="location" class="block text-sm font-medium text-gray-900">Event's Location</label>
                 <div class="mt-1">
-                  <input type="text" name="location" id="location" autocomplete="given-location" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                  <input type="text" name="location" id="location" autocomplete="given-location" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
                 </div>
               </div>
               <div>
                 <label for="date" class="block text-sm font-medium text-gray-900">Date</label>
                 <div class="mt-1">
-                  <input type="date" name="event_date" id="event_date" autocomplete="given-date" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                  <input type="date" name="event_date" id="event_date" autocomplete="given-date" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
                 </div>
               </div>
               <div>
                 <label for="participants" class="block text-sm font-medium text-gray-900">Number Of Participants</label>
                 <div class="mt-1">
-                  <input type="number" name="num_participants" id="num_participants" autocomplete="given-number" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                  <input type="number" name="num_participants" id="num_participants" autocomplete="given-number" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
                 </div>
               </div>
-          
+              
             <div class="sm:col-span-2">
               <label for="subject" class="block text-sm font-medium text-gray-900">Event_Description</label>
               <div class="mt-1">
-                <input type="text" name="event_description" id="event_description" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                <input type="text" name="event_description" id="event_description" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
               </div>
             </div>
             
+            <div class="sm:col-span-2">
+              <label for="subject" class="block text-sm font-medium text-gray-900">Event_Description</label>
+              <div class="mt-1">
+                <input type="file" name="img" accept='image/*' >
+                <input type="submit" value="Upload">
+              </div>
+            </div>
             <div class="sm:col-span-2 sm:flex sm:justify-end">
               <a href="/">
                 <button type="submit" class="mt-2 w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto" style="background-color: #AC5C40;">Submit</button>

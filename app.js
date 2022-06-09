@@ -56,7 +56,7 @@ app.get('/dashboard', [requiresAuth(), createUser] , (req, res) => {
 app.post('/events', async (req, res) => {
     try {
         let events_data = req.body;
-        console.log("This is host data: ", events_data);
+        console.log("This events data: ", events_data);
         const data = await axios.post('http://localhost:3000/events', events_data);
         res.redirect('/');
         // console.log({ data });
@@ -68,11 +68,12 @@ app.post('/events', async (req, res) => {
 });
 app.post('/participants', async (req, res) => {
     try {
-        let events_data = req.body;
-        console.log("This is host data: ", events_data);
-        const data = await axios.post('http://localhost:3000/events', events_data);
+        let participant_data = req.body;
+        console.log("This is participant data: ",participant_data);
+        const data = await axios.post('http://localhost:3000/participants', participant_data);
+        res.redirect('/');
 
-        console.log({ Data : data });
+        console.log("Tickets data", { Data : data });
 
     } catch (error) {
         console.log("Error: ", error.message)
@@ -84,9 +85,17 @@ app.get('/event/:id', async (req, res) => {
     console.log("Event query", event_id_query)
     const result = await axios(`http://localhost:3000/event/${event_id_query}`);
     const data = await result.data;
-//  console.log("the data", data)
     console.log('THE req', { single_event: data.single_event });
     res.render('pages/buy_ticket', { single_event: data.single_event });
+});
+
+app.get('/ticket/:id', async (req, res) => {
+    let ticket_id_query = req.params.id;
+    console.log("Ticket query", ticket_id_query)
+    const result = await axios(`http://localhost:3000/ticket/${ticket_id_query}`);
+    const data = await result.data;
+    console.log('Tickets', { single_ticket: data.single_ticket });
+    res.render('pages/ticket', { single_ticket: data.single_ticket });
 });
 
 app.listen(PORT, function (err) {
