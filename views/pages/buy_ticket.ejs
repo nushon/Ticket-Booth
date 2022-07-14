@@ -57,7 +57,7 @@
 							  <h4 class="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase" style="color: #AC5C40;">What's included</h4>
 							  <div class="flex-1 border-t-2 border-gray-200"></div>
 							</div>
-							<form name="validate" action="/participants" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+							<form name="ticket_submit" id="ticket_submit" action="/participants" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
 								<div>
 								  <label for="name" class="block text-sm font-medium text-gray-900">Name</label>
 								  <div class="mt-1">
@@ -73,20 +73,23 @@
 								<div>
 									<label for="price" class="block text-sm font-medium text-gray-900">Amount</label>
 									<div class="mt-1">
-									  <input type="text" name="price" id="price" autocomplete="price" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
+									  <input type="text" name="price" id="price" value="<%= single_event.ticket_price %>" autocomplete="price" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required readonly>
 									</div>
 								  </div>
 								  <div>
-									<label for="transaction" class="block text-sm font-medium text-gray-900">Transaction Number</label>
+									<label for="transaction" class="block text-sm font-medium text-gray-900">Phone Number</label>
 									<div class="mt-1">
 									  <input type="tel" name="phone_number" id="transaction" autocomplete="tel" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
 									</div>
 								  </div>
 								  <div class="mt-6">
 									<div class="rounded-md shadow">
-										<a href="/" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"> 
-											<button class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900" type="submit"> BUY NOW </button>
-										</a> 
+										<button type="submit" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"> 
+											BUY NOW
+										</button> 
+										<!-- <a href="" id="buy_btn" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"> 
+											BUY NOW
+										</a>  -->
 									</div>
 								  </div>
 								 
@@ -105,12 +108,7 @@
 							<a href="#" class="font-medium text-gray-500 underline"> <%= single_event.event_date %> </a>
 						  </p> -->
 						  
-						  <div class="mt-4 text-sm">
-							<a href="#" class="font-medium text-gray-900">
-							  Get a free sample
-							  <span class="font-normal text-gray-500"> (20MB) </span>
-							</a>
-						  </div>
+						
 						</div>
 					<!-- </form> -->
 					  </div>
@@ -123,26 +121,47 @@
 	
         <%- include('../template/footer') -%>
 		<script>
-			function validation() {
-			let price = "<%= single_event.ticket_price %>";
-			let currency = "<%= single_event.currency%>";
-			let orange_account = "<%= single_event.orange_account%>";
-			let lonestar_account = "<%= single_event.lonestar_account%>";
-			console.log("This is ", + orange_account + " " + price + " " + currency);
-			let usd, ld;
+			document.getElementById("buy_btn").addEventListener('submit', validation);
+			function validation(e) {
+				e.preventDefault();
 
-			if (orange_account === 9) {
-				if (currency === "USD" ) {
-				usd = 1;
-				window.location.href = "tel:*144*usd*1*+231 orange_account*price#";
+				// let price = "<%= single_event.ticket_price %>";
+				// let currency = "<%= single_event.currency%>";
+				// let orange_account = "<%= single_event.orange_account%>";
+				// let lonestar_account = "<%= single_event.lonestar_account%>";
+				
+				// let orange_cc = 0;
+				// orange_cc += orange_account;
+				// alert(orange_cc);
+				// let lonestar_cc = 0;
+				// lonestar_cc += lonestar_account;
+				// let usd, ld;
+				if (orange_account.length === 9) {
+					if (currency === "USD" ) {
+					usd = 1;
+					// window.location.href = `tel:*144*${usd}*1*${orange_cc}*${price}#`;
+					validation(e);
+					}
+					else if(currency === "LRD"){
+					ld = 2;
+					// window.location.href = `tel:*144*2*1*${orange_cc}*${price}#`;
+					validation(e);
+					}
+				}
+				else if (orange_account.length === 9) {
+					if (currency === "USD" ) {
+					usd = 1;
+					// window.location.href = `tel:*156*1*1*${lonestar_cc}*${usd}*${price}#`;
+					validation(e);
+					}
+					else if(currency === "LRD"){
+					ld = 2;
+					// window.location.href = `tel:*156*1*1*${lonestar_cc}*${ld}*${price}#`;
+					validation(e);
+					}
+				}
 
-				console.log("This usd",usd)
-				}else if(currency === "LRD"){
-				ld = 2;
-				window.location.href = "tel:*144*usd*2*+231 orange_account*price#";
-				console.log("This ld", ld);
+				// /ticket/:id;
 			}
-			}
-		}
-		validation();
+		
 		</script>

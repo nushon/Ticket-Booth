@@ -9,3 +9,4 @@
 //     .catch(err => {
 //         console.log(err);
 //     })
+console.log("This is event's data", events);
