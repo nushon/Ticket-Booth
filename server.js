@@ -71,11 +71,11 @@ app.post('/events', async (req, res) => {
     }
 
 });
-app.post('/participants', async (req, res) => {
+app.post('/tickets', async (req, res) => {
     try {
-        let participant_data = req.body;
-        console.log("This is participant data: ",participant_data);
-        const data = await axios.post('http://localhost:3000/participants', participant_data);
+        let tickets_data = req.body;
+        console.log("This is participant data: ",tickets_data);
+        const data = await axios.post('http://localhost:3000/tickets', tickets_data);
         res.redirect('/');
 
         console.log("Tickets data", { Data : data });

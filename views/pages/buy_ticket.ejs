@@ -55,9 +55,10 @@
 						  <div class="mt-8">
 							<div class="flex items-center">
 							  <h4 class="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase" style="color: #AC5C40;">What's included</h4>
-							  <div class="flex-1 border-t-2 border-gray-200"></div>
+							  <!-- <div class="flex-1 border-t-2 border-gray-200"></div> -->
 							</div>
-							<form name="ticket_submit" id="ticket_submit" action="/participants" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+							<form name="ticket_submit" id="ticket_submit" action="/tickets" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+								
 								<div>
 								  <label for="name" class="block text-sm font-medium text-gray-900">Name</label>
 								  <div class="mt-1">
@@ -92,7 +93,11 @@
 										</a>  -->
 									</div>
 								  </div>
-								 
+								  <div>
+									<div class="mt-1">
+										<input type="text" name="event_name" id="event_name" value="<%= single_event.event_name %>" class="invisible py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required readonly>
+									  </div>
+								</div>
 							</form>
 							
 						  </div>
