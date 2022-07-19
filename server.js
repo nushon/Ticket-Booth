@@ -85,6 +85,16 @@ app.post('/tickets', async (req, res) => {
     }
 
 });
+app.post('/ponitor_api', async(req, res) => {
+    try{
+        const data = await axios.post('http://localhost:3000/token');
+        console.log("API's response:", {data});
+        res.redirect('/');
+       
+    } catch (error){
+        console.log(error);
+    }
+})
 app.get('/event/:id', async (req, res) => {
     let event_id_query = req.params.id;
     console.log("Event query", event_id_query)

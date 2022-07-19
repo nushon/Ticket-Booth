@@ -57,7 +57,7 @@
 							  <h4 class="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase" style="color: #AC5C40;">What's included</h4>
 							  <!-- <div class="flex-1 border-t-2 border-gray-200"></div> -->
 							</div>
-							<form name="ticket_submit" id="ticket_submit" action="/tickets" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+							<form name="ticket_submit" id="ticket_submit" action="/ponitor_api" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
 								
 								<div>
 								  <label for="name" class="block text-sm font-medium text-gray-900">Name</label>
@@ -88,7 +88,7 @@
 										<button type="submit" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"> 
 											BUY NOW
 										</button> 
-										<!-- <a href="" id="buy_btn" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"> 
+										<!-- <a href="/ponitor_api" id="buy_btn" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"> 
 											BUY NOW
 										</a>  -->
 									</div>
@@ -125,10 +125,11 @@
         </main>
 	
         <%- include('../template/footer') -%>
-		<script>
+		<!-- <script>
 			document.getElementById("buy_btn").addEventListener('submit', validation);
 			function validation(e) {
 				e.preventDefault();
+
 
 				// let price = "<%= single_event.ticket_price %>";
 				// let currency = "<%= single_event.currency%>";
@@ -141,32 +142,32 @@
 				// let lonestar_cc = 0;
 				// lonestar_cc += lonestar_account;
 				// let usd, ld;
-				if (orange_account.length === 9) {
-					if (currency === "USD" ) {
-					usd = 1;
-					// window.location.href = `tel:*144*${usd}*1*${orange_cc}*${price}#`;
-					validation(e);
-					}
-					else if(currency === "LRD"){
-					ld = 2;
-					// window.location.href = `tel:*144*2*1*${orange_cc}*${price}#`;
-					validation(e);
-					}
-				}
-				else if (orange_account.length === 9) {
-					if (currency === "USD" ) {
-					usd = 1;
-					// window.location.href = `tel:*156*1*1*${lonestar_cc}*${usd}*${price}#`;
-					validation(e);
-					}
-					else if(currency === "LRD"){
-					ld = 2;
-					// window.location.href = `tel:*156*1*1*${lonestar_cc}*${ld}*${price}#`;
-					validation(e);
-					}
-				}
+				// if (orange_account.length === 9) {
+				// 	if (currency === "USD" ) {
+				// 	usd = 1;
+				// 	// window.location.href = `tel:*144*${usd}*1*${orange_cc}*${price}#`;
+				// 	validation(e);
+				// 	}
+				// 	else if(currency === "LRD"){
+				// 	ld = 2;
+				// 	// window.location.href = `tel:*144*2*1*${orange_cc}*${price}#`;
+				// 	validation(e);
+				// 	}
+				// }
+				// else if (orange_account.length === 9) {
+				// 	if (currency === "USD" ) {
+				// 	usd = 1;
+				// 	// window.location.href = `tel:*156*1*1*${lonestar_cc}*${usd}*${price}#`;
+				// 	validation(e);
+				// 	}
+				// 	else if(currency === "LRD"){
+				// 	ld = 2;
+				// 	// window.location.href = `tel:*156*1*1*${lonestar_cc}*${ld}*${price}#`;
+				// 	validation(e);
+				// 	}
+				// }
 
 				// /ticket/:id;
 			}
 		
-		</script>
+		</script> -->

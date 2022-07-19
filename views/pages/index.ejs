@@ -44,15 +44,15 @@
 					<section class="hero">
 						<div class="container">
 							<div class="hero-inner">
-								<div class="hero-copy" style="margin: -50px 0px 0px 0px;">
+								<div class="hero-copy content-center" style="margin: -50px 0px 0px 350px;">
 									<h1
-										class="text-4l font-extrabold text-white sm:text-5l sm:tracking-tight lg:text-4xl">
+										class="text-center text-5l font-extrabold text-white sm:text-5l sm:tracking-tight lg:text-4xl">
 										Let's wow your Event$</h1>
 									<br>
-									<p class="hero-paragraph">We sell tickets and enables you to buy tickets easy and fater</p>
-									<div class="hero-cta"><a class="button button-shadow" href="/event_form">Create an
+									<p class="text-center hero-paragraph">We sell tickets and enable you to buy tickets easy and fater</p>
+									<div class="self-center hero-cta" style="margin: 0px 0px 0px 55px;"><a class="button button-shadow" href="/event_form">Create an
 											Event</a>
-											<a class="button button-primary button-shadow" href="#">Buy Ticket</a></div>
+											<a class="self-center button button-primary button-shadow" href="#">Buy Ticket</a></div>
 								</div>
 								<div class="hero-app">
 									<div class="hero-app-illustration">
@@ -137,7 +137,7 @@
 							<div class="features-inner section-inner has-bottom-divider">
 								
 								<section class="text-gray-600 body-font" >
-									<h2 class="section-title mt-0">Recent Events</h2>
+									<h2 class="section-title mt-0 text-4l lg:text-3xl text-center">Recent Events</h2>
 										<div class="flex flex-wrap -m-4">
 											<% for(var i = 0; i < events.length; i++) {%>
 												<div class="owl-carousel owl-theme p-4 md:w-1/3">
@@ -192,7 +192,11 @@
 																			d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z">
 																		</path>
 																		<circle cx="12" cy="12" r="3"></circle>
-																	</svg>6
+																	</svg>  
+																	<div>
+																		6
+																	</div>
+																	
 																</span>
 															</div>
 
@@ -211,13 +215,14 @@
 						</div>
 					</section>
 
-					<section class="media section">
+					<section class="media section" id="about">
 						<div class="container-sm">
 							<div class="media-inner section-inner">
 								<div class="media-header text-center">
 									<h2 class="section-title mt-0">About Ticket Booth</h2>
-									<p class="section-paragraph mb-0">Lorem ipsum is common placeholder text used to
-										demonstrate the graphic elements of a document or visual presentation.</p>
+									<p class="section-paragraph mb-0">Ticket Booth your number one digital online ticket platform 
+										allowing Events Hosts to sell their events tickets securely, 
+										easily, and accessible.</p>
 								</div>
 								<div class="media-canvas">
 									<svg width="800" height="450" viewBox="0 0 800 450"
@@ -267,12 +272,11 @@
 					</section>
 
 					<section class="newsletter section">
-						<div class="container-sm">
+						<!-- <div class="container-sm">
 							<div class="newsletter-inner section-inner">
 								<div class="newsletter-header text-center">
 									<h2 class="section-title mt-0">Stay in the know</h2>
-									<p class="section-paragraph">Lorem ipsum is common placeholder text used to
-										demonstrate the graphic elements of a document or visual presentation.</p>
+									<p class="section-paragraph"></p>
 								</div>
 								<div class="footer-form newsletter-form field field-grouped">
 									<div class="control control-expanded">
@@ -285,13 +289,13 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</section>
 				</main>
 			</div>
 
 				<%- include('../template/footer') -%>
-				<script>
+				<!-- <script>
 					let events = "<%= events %>";
 					console.log("This is event's data", events);
 
@@ -343,5 +347,5 @@
 					window.onload = function() {
 						change(1);
 					};
-				</script>
+				</script> -->
 				
