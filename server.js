@@ -1,3 +1,4 @@
+// import fetch from "node-fetch";
 const express = require('express');
 let http = require('http');
 let app = express();
@@ -7,8 +8,9 @@ let ejs = require('ejs');
 const axios = require("axios");
 const { auth } = require('express-openid-connect');
 const { requiresAuth } = require('express-openid-connect');
-const { createUser } = require('./src/middlewares/create_user');
+const { createUser } = require('./middlewares/create_user');
 const { response } = require('express');
+// const fetch = require("node-fetch");
 
 
 
@@ -21,9 +23,7 @@ const config = {
     clientID: 'kUGwr6eaUlBs4kdB52fLWNhST4gnlNhp',
     issuerBaseURL: 'https://ticket-booth.us.auth0.com'
   };
-
-
-
+let ticket_info;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -46,7 +46,7 @@ app.get('/buy_ticket', (req, res) => {
 app.get('/ticket', (req, res) => {
     res.render('pages/ticket');
 });
-app.get('/event_form', requiresAuth(), (req, res) => {
+app.get('/event_form', [requiresAuth()], (req, res) => {
     res.render('pages/event_form');
 });
 app.get('/dashboard', [requiresAuth(), createUser] , (req, res) => {
@@ -63,6 +63,9 @@ app.post('/events', async (req, res) => {
         let events_data = req.body;
         console.log("This events data: ", events_data);
         const data = await axios.post('http://localhost:3000/events', events_data);
+
+        
+
         res.redirect('/');
         // console.log({ data });
 
@@ -72,27 +75,44 @@ app.post('/events', async (req, res) => {
 
 });
 app.post('/tickets', async (req, res) => {
+            
     try {
         let tickets_data = req.body;
         console.log("This is participant data: ",tickets_data);
         const data = await axios.post('http://localhost:3000/tickets', tickets_data);
-        res.redirect('/');
-
-        console.log("Tickets data", { Data : data });
+        
+        // console.log("Tickets data", { Data : data.config.data });
+        ticket_info = { ticket: data.config.data };
+        console.log("The display: ", ticket_info);
+        res.json(ticket_info);
+        // res.render('pages/buy_ticket', { ticket: data.config.data });
 
     } catch (error) {
         console.log("Error: ", error.message)
     }
 
 });
-app.post('/ponitor_api', async(req, res) => {
+app.post('/ponitor_token', async(req, res) => {
+
+    // 1. create ticket in db and set status to 'pending'
+    const ticket_id = 'function to create ticket'
+    // 2. generate ponitor token
+
+    // 3. make ponitor payment request
+
+    // 4. update ticket if payment successful
+
+    // 5. render ticket page
+
+    let transaction_data = req.body;
+    console.log("This is transaction data: ",transaction_data);
     try{
-        const data = await axios.post('http://localhost:3000/token');
-        console.log("API's response:", {data});
+        const data = await axios.post('http://localhost:3000/ponitor_api', transaction_data);
+        console.log("transaction response:", {data});
         res.redirect('/');
        
     } catch (error){
-        console.log(error);
+        console.log(error.message);
     }
 })
 app.get('/event/:id', async (req, res) => {
