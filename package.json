@@ -5,10 +5,11 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "dotenv": "^16.0.1",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "express-openid-connect": "^2.7.2",
-    "node-fetch": "^3.2.9",
+    "node-fetch": "^2.6.7",
     "owl.carousel": "^2.3.4",
     "uuid": "^8.3.2"
   },

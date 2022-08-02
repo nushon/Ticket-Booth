@@ -1,4 +1,5 @@
 // import fetch from "node-fetch";
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const express = require('express');
 let http = require('http');
 let app = express();
@@ -8,21 +9,21 @@ let ejs = require('ejs');
 const axios = require("axios");
 const { auth } = require('express-openid-connect');
 const { requiresAuth } = require('express-openid-connect');
-const { createUser } = require('./middlewares/create_user');
+// const { createUser } = require('./middlewares/create_user');
 const { response } = require('express');
 // const fetch = require("node-fetch");
 
 
 
 
-const config = {
-    authRequired: false,
-    auth0Logout: true,
-    secret: 'a long, randomly-generated string stored in env',
-    baseURL: 'http://localhost:3100',
-    clientID: 'kUGwr6eaUlBs4kdB52fLWNhST4gnlNhp',
-    issuerBaseURL: 'https://ticket-booth.us.auth0.com'
-  };
+// const config = {
+//     authRequired: false,
+//     auth0Logout: true,
+//     secret: process.env.AUTH_SECRET,
+//     baseURL: process.env.AUTH_BASEURL,
+//     clientID: process.env.AUTH_CLIENTID,
+//     issuerBaseURL: process.env.AUTH_ISSUER_BASEURL
+//   };
 let ticket_info;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,7 +33,7 @@ app.set('view engine', 'ejs');
 // public 
 app.use(express.static('public'));
 // auth router attaches /login, /logout, and /callback routes to the baseURL
-app.use(auth(config));
+// app.use(auth(config));
 
 
 app.get('/', async (req, res) => {
@@ -49,13 +50,13 @@ app.get('/ticket', (req, res) => {
 app.get('/event_form', [requiresAuth()], (req, res) => {
     res.render('pages/event_form');
 });
-app.get('/dashboard', [requiresAuth(), createUser] , (req, res) => {
+app.get('/dashboard', [requiresAuth()] , (req, res) => {
     res.render('pages/dashboard');
 });
-app.get('/dashboard_new', [requiresAuth(), createUser] , (req, res) => {
+app.get('/dashboard_new', [requiresAuth()] , (req, res) => {
     res.render('pages/dashboard_new');
 });
-app.get('/tables', [requiresAuth(), createUser] , (req, res) => {
+app.get('/tables', [requiresAuth()] , (req, res) => {
     res.render('pages/tables');
 });
 app.post('/events', async (req, res) => {
@@ -78,14 +79,15 @@ app.post('/tickets', async (req, res) => {
             
     try {
         let tickets_data = req.body;
-        console.log("This is participant data: ",tickets_data);
         const data = await axios.post('http://localhost:3000/tickets', tickets_data);
-        
-        // console.log("Tickets data", { Data : data.config.data });
-        ticket_info = { ticket: data.config.data };
-        console.log("The display: ", ticket_info);
-        res.json(ticket_info);
-        // res.render('pages/buy_ticket', { ticket: data.config.data });
+        let success_msg = data.data;
+        if (success_msg == 'Your Tickets table was inserted successfully'){
+            ticket_info = { ticket: data.config.data };
+            // console.log("The display: ", ticket_info);
+            res.json(ticket_info);
+        }else{
+            res.json("There was an error Mr Fool, fix it asap.");
+        }
 
     } catch (error) {
         console.log("Error: ", error.message)
