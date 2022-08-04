@@ -11,7 +11,9 @@ const { auth } = require('express-openid-connect');
 const { requiresAuth } = require('express-openid-connect');
 // const { createUser } = require('./middlewares/create_user');
 const { response } = require('express');
-// const fetch = require("node-fetch");
+const { default: html2canvas } = require('html2canvas');
+// import html2canvas from 'html2canvas';
+// const html2canvas = require(html2canvas);
 
 
 

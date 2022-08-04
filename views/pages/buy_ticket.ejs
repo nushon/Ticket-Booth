@@ -51,7 +51,7 @@
 					<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					  <div class="max-w-lg mx-auto rounded-lg shadow-lg overflow-hidden lg:max-w-none lg:flex">
 						<div class="flex-1 bg-white px-6 py-8 lg:p-12">
-						  <h3 class="text-2xl font-extrabold text-gray-900 sm:text-3xl"><%= single_event.event_name %></h3>
+						  <h3 id="event_name" class="text-2xl font-extrabold text-gray-900 sm:text-3xl"><%= single_event.event_name %></h3>
 						  <p class="mt-6 text-base text-gray-500"><%= single_event.event_description %></p>
 						  <div class="mt-8">
 							<div class="flex items-center">
@@ -100,11 +100,13 @@
 						  </div>
 						</div>
 						<div class="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
-						  <p class="text-lg leading-6 font-medium text-gray-900">Event's Date: <%= single_event.event_date %></p> <br>
-						  <p class="text-lg leading-6 font-medium text-gray-900">Event's Venue: <%= single_event.location %></p>
+						  <p class="text-lg leading-6 font-medium text-gray-900">Event's Date:</p>
+						  <p id="event_date" class="text-lg leading-6 font-medium text-gray-900"><%= single_event.event_date %></p> <br>
+						  <p class="text-lg leading-6 font-medium text-gray-900">Event's Venue:</p>
+						  <p id="event_location" class="text-lg leading-6 font-medium text-gray-900"><%= single_event.location %></p>
 						  <div class="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900">
 							<span> <%= single_event.ticket_price %> </span>
-							<span class="ml-3 text-xl font-medium text-gray-500"> <%= single_event.currency%> </span>
+							<span id="ticket_currency" class="ml-3 text-xl font-medium text-gray-500"><%= single_event.currency%></span>
 						  </div>
 						  <!-- <p class="mt-4 text-sm">
 							<a href="#" class="font-medium text-gray-500 underline"> <%= single_event.event_date %> </a>
@@ -118,16 +120,40 @@
 				  </div>
 				</div>
 			  </div>
+			  <div id="ticket_card">
+ 				<!-- SUCCESS BUTTONS  -->
+				<div id="buttons_section" class="rounded-md bg-green-50 p-4" style="width: 30%">
+					<div class="flex">
+					  <div class="flex-shrink-0">
+						<!-- Heroicon name: solid/check-circle -->
+						<svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+						  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+						</svg>
+					  </div> 
+					  <div class="ml-3">
+						<h3 class="text-sm font-medium text-green-800">Purchase completed</h3>
+						
+						<div class="mt-4">
+						  <div class="-mx-2 -my-1.5 flex">
+							<button type="button" class="bg-green-50 px-2 py-1.5 rounded-md text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-50 focus:ring-green-600" onclick="download_ticket();">Download Ticket</button>
+							<button type="button" class="ml-3 bg-green-50 px-2 py-1.5 rounded-md text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-50 focus:ring-green-600"onclick="print_ticket();">Print Ticket</button>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				  			  <!-- TICKET PAGE  -->
+				<div id="ticket"></div>
+			  </div>
+			 
+			  
+
 			
-			  <!-- TICKET PAGE  -->
-			<div id="ticket">
-				
-				
-			</div>
-			
-				<div id="buttons_section" class="rounded-md shadow">
+			  
+				<!-- <div id="buttons_section" class="rounded-md shadow flex items-center">
 					<button class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900" onclick="print_ticket();">Print Ticket</button>
-				</div>
+					<button class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900" onclick="download_ticket();">Download Ticket</button>
+				</div> -->
         </main>
 
 	

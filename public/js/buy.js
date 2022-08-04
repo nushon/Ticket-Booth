@@ -10,9 +10,22 @@ function generate_externalID(){
 
 // PRINT TICKET FUNCTION 
 function print_ticket() {
-  let ticket_section = document.getElementById("ticket").innerHTML;
+  let ticket_section = document.getElementById("ticket_card").innerHTML;
   document.body.innerHTML = ticket_section;
   window.print();
+}
+ // DOWNLOAD TICKET 
+function download_ticket() {
+  let ticket_ele = document.getElementById("ticket");
+
+  html2canvas(ticket_ele, {
+}).then(canvas => {
+    // console.log(canvas, "here");
+    canvas.toBlob(function(blob) {
+      window.saveAs(blob, `${event_name}.jpg`);
+    });
+    // document.body.appendChild(canvas)
+});
 }
 
 function generate_and_submit() {
@@ -23,10 +36,13 @@ function generate_and_submit() {
     let address = document.getElementById("participant_address").value;
     let amount = document.getElementById("price").value;
     let msisdn = document.getElementById("transaction").value;
-    let event_name = `<%= single_event.event_name %>`;
-    let currency = `<%= single_event.currency%>`;
+    let event_name = document.getElementById("event_name").innerHTML;
+    let currency = document.getElementById("ticket_currency").innerHTML;
+    let event_location = document.getElementById("event_location").innerHTML;
+    let event_date = document.getElementById("event_date").innerHTML;
     let external_id = uuid;
     console.log("This is external id: ", external_id);
+
     fetch('/tickets',{
       method: 'POST',
       body: JSON.stringify({
@@ -54,54 +70,74 @@ function generate_and_submit() {
       if (data){
         alert("Congratulations!");
         let ticketData = JSON.parse(data.ticket);
-        console.log("This is hvsh: ", ticketData.name);
+        console.log("This is hvsh: ", ticketData);
 
         let ticket_design = document.getElementById("ticket");
         ticket_design.innerHTML += `
-        <h2 class="sr-only">Our perks</h2>
-				<div class="max-w-7xl mx-auto divide-y divide-gray-200 lg:py-8 lg:flex lg:justify-center lg:divide-y-0 lg:divide-x">
-					<div class="py-8 lg:py-0 lg:w-1/3 lg:flex-none">
-					<div class="max-w-xs mx-auto px-4 flex items-center lg:max-w-none lg:px-8">
-						<svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #AC5C40;">
-						<path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-						</svg>
-						<div class="ml-4 flex-auto flex flex-col-reverse">
-						<h3 class="font-medium text-white-900"> ${ticketData.event_name} </h3>
-						<p class="text-sm text-white-600">Event's Name</p>
-						</div>
-					</div>
-					</div>
-					<div class="py-8 lg:py-0 lg:w-1/3 lg:flex-none">
-					<div class="max-w-xs mx-auto px-4 flex items-center lg:max-w-none lg:px-8">
-					
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color: #AC5C40;">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-						</svg>
-						<div class="ml-4 flex-auto flex flex-col-reverse">
-						<h3 class="font-medium text-white-900"> ${ticketData.name} </h3>
-						<p class="text-sm text-white-600">Name</p>
-						</div>
-					</div>
-					</div>
-					<div class="py-8 lg:py-0 lg:w-1/3 lg:flex-none">
-					<div class="max-w-xs mx-auto px-4 flex items-center lg:max-w-none lg:px-8">
-						
-						<svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #AC5C40;">
-						<path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
-						<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
-						</svg>
-						<div class="ml-4 flex-auto flex flex-col-reverse">
-						<h3 class="font-medium text-white-900">	${ticketData.amount} $</h3>
-						<p class="text-sm text-white-600">Amount Paid</p>
-						</div>
-					</div>
-					</div>
-				</div>
-				<img class="xl:w-1/4 lg:w-1/3 md:w-1/2 w-2/3 block mx-auto mb-10 object-cover object-center rounded" alt="hero" src="img/Try_New.png">
-       
-        `
-        // console.log(ticketData);
-
+        
+  <div class="ticket">
+	<div class="holes-top"></div>
+	<div class="title">
+  <div id="img_sect">
+  <img id="ticket_img" src="/img/new1.png" alt="${event_name}" />
+  </div>
+		<p class="event-title">${event_name}</p>
+    <p class="ticket_num"><b>Ticket#:</b> ${ticketData.external_id}</p>
+	</div>
+	
+	<div class="info">
+	<table>
+		<tr>
+			<th class="bigger">NAME</th>
+			<th class="bigger">VENUE</th>
+			<th class="bigger">SEAT</th>
+		</tr>
+		<tr>
+			<td class="bigger"><b>${ticketData.name}</b></td>
+			<td class="bigger">${event_location}</td>
+			<td class="bigger">24</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<th class="bigger">PRICE</th>
+			<th class="bigger">DATE</th>
+			<th class="bigger">TIME</th>
+		</tr>
+		<tr>
+			<td class="bigger">$${ticketData.amount} ${ticketData.currency}</td>
+			<td class="bigger">${event_date}</td>
+			<td class="bigger">19:30</td>
+		</tr>
+	</table>
+  <div id="brand_footer">
+                    <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <title>Laurel</title>
+                        <defs>
+                            <linearGradient x1="0%" y1="100%" x2="50%" y2="0%" id="logo-footer-a">
+                                <stop stop-color="#F9425F" stop-opacity=".8" offset="0%"/>
+                                <stop stop-color="#47A1F9" stop-opacity=".16" offset="100%"/>
+                            </linearGradient>
+                            <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="logo-footer-b">
+                                <stop stop-color="#FDFFDA" offset="0%"/>
+                                <stop stop-color="#F97059" stop-opacity=".798" offset="49.935%"/>
+                                <stop stop-color="#F9425F" stop-opacity="0" offset="100%"/>
+                            </linearGradient>
+                        </defs>
+                        <g fill="none" fill-rule="evenodd">
+                            <path d="M22 19.22c6.627 0 9.593-6.415 9.593-13.042C31.593-.45 28.627.007 22 .007S10 2.683 10 9.31c0 6.628 5.373 9.91 12 9.91z" fill="url(#logo-footer-a)"/>
+                            <path d="M13.666 31.889c7.547 0 10.924-7.307 10.924-14.854 0-7.547-3.377-7.027-10.924-7.027C6.118 10.008 0 13.055 0 20.603c0 7.547 6.118 11.286 13.666 11.286z" fill="url(#logo-footer-b)" transform="matrix(-1 0 0 1 24.59 0)"/>
+                        </g>
+                    </svg>
+                </div>
+  <div class="footer-copyright">&copy; 2022 Ticket Booth, www.ticketbooth.store</div>
+	</div>
+  
+	<div class="holes-lower"></div>
+	
+</div>
+  
+        `  
 
      // HIDE THE TICKET FORM 
      let ticket_form = document.getElementById("ticket_form");
@@ -119,5 +155,3 @@ function generate_and_submit() {
     });
 
   }
-  
-  // console.log(uuidv4());
