@@ -83,9 +83,11 @@ app.post('/tickets', async (req, res) => {
         let tickets_data = req.body;
         console.log("I wan to see", tickets_data);
         const data = await axios.post('http://localhost:3000/tickets', tickets_data);
-        let success_msg = data.data;
-        if (success_msg == 'Your Tickets table was inserted successfully'){
+        let success_msg = data.statusText;
+        console.log({success_msg})
+        if (success_msg === 'OK'){
             ticket_info = { ticket: data.config.data };
+            console.log("ticket info", ticket_info);
             res.json(ticket_info);
         }else{
             res.json("There was an error Mr Fool, fix it asap.");

@@ -70,8 +70,7 @@ function generate_and_submit() {
       console.log(data);
       if (data){
         alert("Congratulations!");
-        let ticketData = data.ticket;
-        console.log("This is hvsh: ", ticketData);
+        let ticketData = data;
       }
     })
     .catch(error => {
