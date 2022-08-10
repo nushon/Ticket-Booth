@@ -9,7 +9,7 @@ let ejs = require('ejs');
 const axios = require("axios");
 const { auth } = require('express-openid-connect');
 const { requiresAuth } = require('express-openid-connect');
-// const { createUser } = require('./middlewares/create_user');
+// const { createUser } = require('middlewares/create_user');
 const { response } = require('express');
 const { default: html2canvas } = require('html2canvas');
 // import html2canvas from 'html2canvas';
@@ -81,11 +81,11 @@ app.post('/tickets', async (req, res) => {
             
     try {
         let tickets_data = req.body;
+        console.log("I wan to see", tickets_data);
         const data = await axios.post('http://localhost:3000/tickets', tickets_data);
         let success_msg = data.data;
         if (success_msg == 'Your Tickets table was inserted successfully'){
             ticket_info = { ticket: data.config.data };
-            // console.log("The display: ", ticket_info);
             res.json(ticket_info);
         }else{
             res.json("There was an error Mr Fool, fix it asap.");
@@ -96,29 +96,7 @@ app.post('/tickets', async (req, res) => {
     }
 
 });
-app.post('/ponitor_token', async(req, res) => {
 
-    // 1. create ticket in db and set status to 'pending'
-    const ticket_id = 'function to create ticket'
-    // 2. generate ponitor token
-
-    // 3. make ponitor payment request
-
-    // 4. update ticket if payment successful
-
-    // 5. render ticket page
-
-    let transaction_data = req.body;
-    console.log("This is transaction data: ",transaction_data);
-    try{
-        const data = await axios.post('http://localhost:3000/ponitor_api', transaction_data);
-        console.log("transaction response:", {data});
-        res.redirect('/');
-       
-    } catch (error){
-        console.log(error.message);
-    }
-})
 app.get('/event/:id', async (req, res) => {
     let event_id_query = req.params.id;
     console.log("Event query", event_id_query)

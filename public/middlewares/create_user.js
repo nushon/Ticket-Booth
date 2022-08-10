@@ -23,8 +23,6 @@ let admin_obj = {
     }
     next();
   }
-
-
   module.exports = {
       createUser
   }
