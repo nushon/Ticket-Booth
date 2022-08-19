@@ -4,7 +4,7 @@ const express = require('express');
 let http = require('http');
 let app = express();
 let path = require("path");
-let PORT = process.env.PORT || 3100;
+let PORT = process.env.PORT || 3220;
 let ejs = require('ejs');
 const axios = require("axios");
 const { auth } = require('express-openid-connect');
@@ -39,7 +39,7 @@ app.use(express.static('public'));
 
 
 app.get('/', async (req, res) => {
-    const result = await axios("http://localhost:3000/all_events");
+    const result = await axios("http://localhost:3200/all_events");
     const data = result.data;
     res.render('pages/index', { events: data.all_events});
 });
@@ -65,7 +65,7 @@ app.post('/events', async (req, res) => {
     try {
         let events_data = req.body;
         console.log("This events data: ", events_data);
-        const data = await axios.post('http://localhost:3000/events', events_data);
+        const data = await axios.post('http://localhost:3200/events', events_data);
 
         
 
@@ -82,13 +82,14 @@ app.post('/tickets', async (req, res) => {
     try {
         let tickets_data = req.body;
         console.log("I wan to see", tickets_data);
-        const data = await axios.post('http://localhost:3000/tickets', tickets_data);
+        const data = await axios.post('http://localhost:3200/tickets', tickets_data);
         let success_msg = data.statusText;
         console.log({success_msg})
         if (success_msg === 'OK'){
             ticket_info = { ticket: data.config.data };
             console.log("ticket info", ticket_info);
             res.json(ticket_info);
+            
         }else{
             res.json("There was an error Mr Fool, fix it asap.");
         }
@@ -102,20 +103,21 @@ app.post('/tickets', async (req, res) => {
 app.get('/event/:id', async (req, res) => {
     let event_id_query = req.params.id;
     console.log("Event query", event_id_query)
-    const result = await axios(`http://localhost:3000/event/${event_id_query}`);
+    const result = await axios(`http://localhost:3200/event/${event_id_query}`);
     const data = await result.data;
     console.log('THE req', { single_event: data.single_event });
     res.render('pages/buy_ticket', { single_event: data.single_event });
 });
 
-app.get('/ticket/:id', async (req, res) => {
-    let ticket_id_query = req.params.id;
-    console.log("Ticket query", ticket_id_query)
-    const result = await axios(`http://localhost:3000/ticket/${ticket_id_query}`);
-    const data = await result.data;
-    console.log('Tickets', { single_ticket: data.single_ticket });
-    res.render('pages/ticket', { single_ticket: data.single_ticket });
-});
+// app.get('/ticket', async (req, res) => {
+//     // let ticket_id_query = req.params.id;
+//     // console.log("Ticket query", ticket_id_query)
+//     // const result = await axios(`http://localhost:3200/ticket/${ticket_id_query}`);
+//     // const data = await result.data;
+//     // console.log('Tickets', { single_ticket: data.single_ticket });
+//     res.render('pages/ticket', { single_ticket: data.single_ticket });
+//     res.render("pages/ticket");
+// });
 
 app.listen(PORT, function (err) {
     if (err) console.log(err);

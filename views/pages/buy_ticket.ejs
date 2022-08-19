@@ -81,12 +81,12 @@
 								  <div>
 									<label for="transaction" class="block text-sm font-medium text-gray-900">Phone Number</label>
 									<div class="mt-1">
-									  <input type="tel" name="msisdn" id="transaction" autocomplete="tel" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" required>
+									  <input type="tel" name="msisdn" id="transaction" autocomplete="tel" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" onkeyup="validate_msisdn();" onclick="validate_msisdn();" onchange="validate_msisdn();" required>
 									</div>
 								  </div>
 								  <div class="mt-6">
 									<div class="rounded-md shadow">
-										<input type="button" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900" onclick="generate_and_submit();" value="BUY NOW"> 
+										<input type="button" id="buyNowBtn" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900" onclick="generate_and_submit();" value="BUY NOW"> 
 											
 									</input> 
 										<!-- <a href="/ponitor_api" id="buy_btn" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"> 
@@ -144,6 +144,17 @@
 				  </div>
 				  			  <!-- TICKET PAGE  -->
 				<div id="ticket"></div>
+				<div id="spinner" class="flex items-center justify-center space-x-2">
+					<div class="spinner-border animate-spin inline-block w-12 h-12 border-4 rounded-full" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+				</div>
+				<!-- <div id="spinner" class="flex items-center justify-center space-x-2">
+					<div class="spinner-grow inline-block w-8 h-8 bg-current rounded-full opacity-0 text-red-500" role="status" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+				</div> -->
+				
 			  </div>
 			 
 			  
