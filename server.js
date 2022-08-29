@@ -1,16 +1,17 @@
 // import fetch from "node-fetch";
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const express = require('express');
-let http = require('http');
-let app = express();
-let path = require("path");
-let PORT = process.env.PORT || 3220;
-let ejs = require('ejs');
+const http = require('http');
+const app = express();
+const path = require("path");
+const PORT = process.env.PORT || 3040;
+const ejs = require('ejs');
 const axios = require("axios");
 // const { auth } = require('express-openid-connect');
 // const { requiresAuth } = require('express-openid-connect');
 // const { createUser } = require('middlewares/create_user');
 const { response } = require('express');
+
 const { default: html2canvas } = require('html2canvas');
 // import html2canvas from 'html2canvas';
 // const html2canvas = require(html2canvas);
@@ -66,16 +67,10 @@ app.post('/events', async (req, res) => {
         let events_data = req.body;
         console.log("This events data: ", events_data);
         const data = await axios.post('http://localhost:3200/events', events_data);
-
-        
-
         res.redirect('/');
-        // console.log({ data });
-
     } catch (error) {
         console.log("Error: ", error.message)
     }
-
 });
 app.post('/tickets', async (req, res) => {
             
@@ -101,26 +96,32 @@ app.post('/tickets', async (req, res) => {
 });
 
 app.get('/event/:id', async (req, res) => {
+  try {
     let event_id_query = req.params.id;
     console.log("Event query", event_id_query)
     const result = await axios(`http://localhost:3200/event/${event_id_query}`);
     const data = await result.data;
     console.log('THE req', { single_event: data.single_event });
     res.render('pages/buy_ticket', { single_event: data.single_event });
+  } catch (error) {
+      res.send (error)
+  }
 });
 
 app.get('/get_collection', async (req, res) => {
-    // let ticket_id_query = req.params.id;
-    // console.log("Ticket query", ticket_id_query)
+    
+   try {
+    console.log("Collection");
     const result = await axios(`http://localhost:3200/get_collection`);
-    const data = await result.data;
-    console.log(data);
-    if (data.status === "success") {
-        alert("Successful");
-    }
-    // console.log('Tickets', { single_ticket: data.single_ticket });
-    // res.render('pages/ticket', { single_ticket: data.single_ticket });
-    res.render("pages/ticket");
+    const data = result.data[0];
+    console.log({data});
+    res.send("We have the collection");
+    // if (data.status === "success") {
+    //     alert("Successful");
+    // }
+   } catch (error) {
+       res.send({error})
+   }
 });
 
 app.listen(PORT, function (err) {
